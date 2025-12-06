@@ -1,4 +1,5 @@
 # Formelsamling til faget elektroteknik
+(Readme er meget WIP!)
 
 ## Introduktion
 En formelsamling jeg har levet til faget [Elektroteknik](https://kurser.dtu.dk/course/30032), undervist af den fantastiske underviser Sten Schmidl Søbjærg.
