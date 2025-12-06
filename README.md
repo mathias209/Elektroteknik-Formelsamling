@@ -3,7 +3,7 @@
 
 ## Introduktion
 En formelsamling jeg har levet til faget [Elektroteknik](https://kurser.dtu.dk/course/30032), undervist af den fantastiske underviser Sten Schmidl Søbjærg.
-For nu indeholder den alt jeg har følt passede ind, som jeg har lært på det første semester af uddanelsen Diplomingeniør i Elektroteknologi. I senere semestre kan det være jeg vælger at der er flere ting der passer ind her, eller måske laver jeg flere forskellige formelsamlinger ¯\\_(ツ)_/¯.
+For nu indeholder den alt jeg har følt passede ind, som jeg har lært på det første semester af uddanelsen Diplomingeniør i Elektroteknologi. I senere semestre kan det være jeg vælger at der er flere ting der passer ind her, eller måske laver jeg flere forskellige formelsamlinger ¯\\\_(ツ)\_/¯.
 
 Hvis der er noget du synes skal ændres er jeg altid åben til konstruktiv kritik :).
 
