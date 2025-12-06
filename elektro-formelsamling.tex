@@ -1,0 +1,558 @@
+\documentclass[12pt]{article}
+
+% packages
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\usepackage{siunitx}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{circuits.ee.IEC}
+\usepackage[siunitx, RPvoltages, american]{circuitikz}
+\usetikzlibrary{calc}
+
+\usepackage[danish]{babel}
+
+% formatting
+\setlength\parindent{0pt}
+
+% command definitions
+\newcommand{\lov}[2]{{\bf #1}\par\nobreak #2\vskip 5pt}
+\newcommand{\regel}[2]{{\it #1} #2\vskip 5pt}
+\newcommand{\enhed}[4]{{\bf #1} $\unit{#2}$\par\nopagebreak #3\par\nopagebreak #4\vskip 5pt}
+\newcommand{\koge}[1]{\subsection{#1}}
+
+\newcommand\gnd{%
+\ensuremath{\mathbin{\text{\begin{tikzpicture}[circuit ee IEC,yscale=0.6,xscale=0.5]
+\draw (0,2ex) to (0,0) node[ground,rotate=-90,xshift=.65ex] {};
+\end{tikzpicture}}}}%
+}
+
+\newcommand\cvsource{%
+\begin{circuitikz}\ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}\ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}} \draw (0,0) to[cvsource, bipoles/length=0.7cm, invert] +(1,0);\end{circuitikz}%
+}
+
+\newcommand\cisource{%
+\begin{circuitikz} \draw (0,0) to[cisource, bipoles/length=0.7cm] +(1,0);\end{circuitikz}%
+}
+
+\newcommand\vsource{%
+\begin{circuitikz}\ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}\ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}} \draw (0,0) to[vsource, bipoles/length=0.7cm, invert] +(1,0);\end{circuitikz}%
+}
+
+\newcommand\isource{%
+\begin{circuitikz} \draw (0,0) to[isource, bipoles/length=0.7cm] +(1,0);\end{circuitikz}%
+}
+
+\newcommand\slojfe[1][->]{%
+\begin{circuitikz}[scale=.5] \draw[#1,thick] (0,0) .. controls (.25,.3) and (.75,.3) .. (1,0);\end{circuitikz}%
+}
+
+\newcommand\rboks[3][.7]{%
+\begin{tikzpicture}%
+    \draw[red,ultra thick] (0,0) rectangle node[black,align=left]{#2} (#3,#1);%
+\end{tikzpicture}%
+}
+
+\newcommand\termeq{%
+\begin{tikzpicture}[scale=.3]%
+    \draw[->] (0,0) -- ++(0,2) -- ++(-1,0);%
+\end{tikzpicture}%
+}
+
+\newcommand\bipole[1]{%
+    \begin{circuitikz}[scale=.5]%
+	\draw (0,0) to[#1,bipoles/length=0.6cm] (2,0);%
+    \end{circuitikz}%
+}
+
+\newcommand\short{%
+    \begin{circuitikz}[scale=.5]%
+	\draw (0,0) to[short,*-*] (1.5,0);%
+    \end{circuitikz}%
+}
+
+\newcommand\colorul[3][black]{\color{#2}\underline{\color{#1}#3}\color{#1}}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
+\begin{document}
+
+\title{Formelsamling til Elektroteknik}
+\author{Mathias \O. Selander}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+    En formelsamling med formler indenfor faget elektroteknik. \emph{Indholdsfortegnelse på næste side.}
+    \vskip 10pt
+    Formelsamlingen er opdelt i 4 dele:
+    \begin{description}
+	\item[Love og Regler] En liste over forskellige love som kan bruges til at udregne forskellige værdier.
+	\item[Matematik] Forskellig matematik til brug af løsning af differentiale ligninger f.eks.
+	\item[Komponenter] En samling af komponenter og informationer omkring dem.
+	\item[Kogebøger] Stens Kogebøger skrevet direkte af.
+    \end{description}
+\end{abstract}
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\section{Love og Regler}
+\lov{Kirchoffs str\o mlov (KCL)}{$I_1+I_2+I_3=0$}
+
+\lov{Kirchoffs sp\ae ndings lov (KVL)}{$V_1+V_2+V_3=0$}
+
+\lov{Effekt for passiv komponent($+\rightarrow -$)}{$P=VI$}
+\lov{Effekt for aktiv komponent ($+\leftarrow -$)}{$P=-VI$}
+
+\lov{Ohms lov}{$V_R=RI_R$}
+
+\subsection{Serieopstillinger}
+\lov{Alle Strømme er ens}{$I_t=I_1=I_2$}
+\lov{Spændinger adderes}{$V_t=V_1+V_2$}
+\lov{Ækvivalent modstand}{$R_{eq}=R_1+R_2$}
+\lov{Spændingsdeler}{$$V_{R1}=V_t\cdot{R_1\over R_1+R_2}$$ $$V_{R2}=V_t\cdot{R_2\over R_1+R_2}$$}
+\lov{Specielt, hvis $R_1=R_2$ da gælder}{$V_{R1}=V_{R2}={V_t\over 2}$}
+
+\subsection{Parallelopstilling}
+\lov{Alle Spændinger er ens}{$V_t=V_1=V_2$}
+\lov{Strømme adderes}{$I_t=I_1+I_2$}
+\lov{Ækvivalent modstand}{${1\over R_{eq}}={1\over R_1}+{1\over R_2}$}
+\subsubsection{Specielt for \emph{netop to} modstande}
+\lov{Ækvivalent modstand}{$R_{eq}=\frac{R_1R_2}{R_1+R_2}$}
+\lov{Specielt hvis $R_1=R_2$ da gælder}{$R_{eq}={R_1\over 2}={R_2\over 2}$}
+\lov{3 modstande (?)}{$R_{eq}=\frac{R_1}{3}=\frac{R_2}{3}=\frac{R_3}{3}$}
+\lov{Strømdeling}{$I_{R1}=I_t\cdot{R_2\over R_1+R_2}$\par\nopagebreak$I_{R2}=I_t\cdot{R_1\over R_1+R_2}$}
+\lov{Specielt hvis $R_1=R_2$ da gælder}{$I_{R1}=I_{R2}={I_t\over2}$}
+
+\subsection{Thevenin og Norton}
+\lov{Thevenin spænding er lig open circuit}{$V_t=V_{oc}$}
+\lov{Norton strømmen er lig short circuit}{$I_n=I_{sc}$}
+\lov{Thevenin og Norton modstand}{$R_t=R_n=\frac{V_{oc}}{I_{sc}}=\frac{V_t}{I_n}$}
+\lov{Hvis ingen styrede kilder}{$R_n=R_t=R_{eq}$\termeq}
+\lov{Effekt på load}{$P_L=V_t^2\frac{R_L}{(R_t+R_L)^2}$}
+\lov{Maks effekt}{$P_{max}=\frac{V_tI_n}4$}
+\lov{}{$P_{max}=\frac{V_t^2}{4R_t}$}
+
+\subsubsection{Kildetransformation}
+\lov{}{$R_n=R_t$}
+\lov{Strøm $\rightarrow$ spænding}{$V_t=I_n\cdot R_n$}
+\lov{Spænding $\rightarrow$ strøm}{$I_n=\frac{V_t}{R_t}$}
+
+\subsection{Boolsk Algebra}
+\lov{1.}{$A+B=B+A\quad;\quad AB=BA$}
+
+\lov{2.}{$A+(B+C)=(A+B)+C\quad;\quad A(BC)=(AB)C$}
+
+\lov{3.}{$A(B+C)=AB+AC\quad;\quad(A+B)(C+D)=AC+AD+BC+BD$}
+
+\regel{1.}{$A\cdot 0=0$}
+
+\regel{2.}{$A\cdot 1=A$}
+
+\regel{3.}{$A+0=A$}
+
+\regel{4.}{$A+1=1$}
+
+\regel{5.}{$A\cdot A=A$}
+
+\regel{6.}{$A+A=A$}
+
+\regel{7.}{$A\cdot\overline A=0$}
+           
+\regel{8.}{$A+\overline A=1$}
+           
+\regel{9.}{$\overline{\overline A}=A$}
+
+\regel{10A.}{$A+\overline A\cdot B=A+B$}
+
+\regel{10B.}{$\overline A+A\cdot B=\overline A+B$}
+
+\lov{Demorgan 1.}{$\overline{A\cdot B}=\overline A+\overline B$}
+\lov{Demorgan 2.}{$\overline{A+ B}=\overline A\cdot\overline B$}
+
+\lov{Xor}{$A\oplus B=\overline A\cdot B+A\cdot\overline B$}
+\lov{Xnor}{$\overline{A\oplus B}=\overline A\cdot \overline B+A\cdot B$}
+
+\subsection{Digitale byggeblokke}
+\lov{Talrum}{$[0;2^n-1]$}
+\lov{Talrum (2's complement)}{$[-2^{n-1};2^{n-1}-1]$}
+
+\subsection{Ikke lineæere komponenter}
+\subsubsection{Dioder}
+\lov{Strøm som funktion af spænding for diode}{$I_d=\frac{V_S-V_d}{R_d}$}
+\subsubsection{Transistorer}
+\lov{Strøm på basis}{$I_B=\frac{V_{BB}-V_{BE}}{R_B}$}
+\lov{Strøm på kollektor}{$I_C=\frac{V_{CC}-V_{CE}}{R_C}$}
+
+\section{Matematik}
+$$
+    f(x)=e^{ax}\,\Rightarrow\left\{
+	\begin{array}{l}
+	    f'(x)=a\cdot e^{ax}\\
+	    \int f(x)\,dx=\frac1a\cdot e^{ax}\\
+	    f(0)=1\\
+	    f(x)\rightarrow0\ \text{for}\ x\rightarrow -\infty,a>0\\
+	    f(x)\rightarrow0\ \text{for}\ x\rightarrow \infty,a<0\\
+	\end{array}
+    \right.
+$$
+\subsection{Panserformlen}
+$$
+\begin{array}{l}
+    y'(t)+p(t)\cdot y(t)=q(t)\\
+    \Updownarrow\\
+    y(t)=e^{-P(t)}\cdot\int e^{P(t)}\cdot q(t)\,dt+ke^{-P(t)}
+\end{array}
+$$
+
+hvor $k$ er en konstant og $P(t)$ er en stamfunktion til $p(t)$
+
+\section{Komponenter}
+\subsection{Lineære Komponenter, Leksikon}
+\begin{changemargin}{-4cm}{0cm}
+	
+    \begin{tabular}{p{9.5em}|l|l|l}
+    Type & Modstand ($R$) & Kondensator ($C$) & Spole ($L$) \\ \hline
+
+    Symbol & \begin{circuitikz}\draw (0,0) to[R,v=$V_R$,f=$I_R$] (2.5,0);\end{circuitikz} & \begin{circuitikz}\draw (0,0) to[C,v=$V_C$,f=$I_C$] (2.5,0);\end{circuitikz} & \begin{circuitikz}\draw (0,0) to[L,v=$V_L$,f=$I_L$] (2.5,0);\end{circuitikz} \\
+    Ligning & \rboks{$V_R=R\cdot I_R$}{2.2} & \rboks{$I_C=C\cdot\frac{dV_C}{dt}$}{2.7} & \rboks{$V_L=L\cdot\frac{dI_L}{dt}$}{2.7} \\
+    Enhed & $[R]=\si{\frac VA}=\Omega$ & $[C]=\si{\frac CV}=\si{\frac{AS}{V}}=$\rboks{$\si{s\cdot\Omega^{-1}}=\si{F}$}{2.2} & $[L]=\si{\frac{Vs}{A}}=$\rboks{$\si{s\Omega}=\si{H}$}{1.8} \\ \hline
+
+    Serie & $R_{eq}=R_1+R_2$ & $\frac1{C_{eq}}=\frac1{C_1}+\frac1{C_2}\Leftrightarrow C_{eq}=\frac{C_1C_2}{C_1+C_2}$ & $L_{eq}=L_1+L_2$ \\
+    Parallel & $\frac1{R_{eq}}=\frac1{R_1}+\frac1{R_2}\Leftrightarrow R_{eq}=\frac{R_1R_2}{R_1+R_2}$ & $C_{eq}=C_1+C_2$ & $\frac1{L_{eq}}=\frac1{L_1}+\frac1{L_2}\Leftrightarrow L_{eq}=\frac{L_1L_2}{L_1+L_2}$ \\ \hline
+
+    $P_{øjeblik}$ & $P_{ø}=V_R\cdot I_R=\frac{V_R^2}{R}=R\cdot I_R^2$ & $P_{ø}=V_C\cdot I_C=CV_C\frac{dV_C}{dt}$ & $P_{ø}=V_L\cdot I_L=L\cdot I_L\cdot\frac{dI_L}{dt}$ \\
+    $P_{middel}$ \small{$\begin{pmatrix}\text{Sinus med amplitude}\\V_A\text{\ og\ }V_{RMS}=\frac{V_A}{\sqrt2}\end{pmatrix}$} & $\begin{array}{ll}P_m & =V_{RAS}\cdot I_{RMS}\\&=\frac{V_{RMS}^2}{R}=\frac{V_A^2}{2R}\end{array}$ & $P_m=0$ & $P_m=0$ \\ \hline
+
+    Oplagret energi & $\omega=0$ & $\omega=\frac12 C\cdot V_C^2$ & $\omega=\frac12 L\cdot I_L^2$ \\
+    Steady state model = ``efter lang tid'' & \begin{circuitikz}\draw (0,0) to[R,v=$V_R$,f=$I_R$] (2.5,0);\end{circuitikz} & \begin{circuitikz}\ctikzset{open voltage position={legacy}}\draw (0,0) to[short,-*] ++(.5,0) to[open,v=$V_C$] ++(1.5,0) to[short,*-] ++(.5,0);\end{circuitikz} & \begin{circuitikz}\draw (0,0) to[short,f_={$I_L$}] (2.5,0);\end{circuitikz} \\
+    Kontinutitet & Ingen krav & $\begin{array}{c}V_C(t_-)=V_C(t_+)\\V_C\text{\ er kontinuert}\end{array}$ & $\begin{array}{c}I_L(t_-)=I_L(t_+)\\I_L\text{\ er kontinuert}\end{array}$ \\ \hline
+\end{tabular}
+
+\end{changemargin}
+
+\subsection{Andre gates lavet af NAND}
+\lov{Not}{$X=\overline{A\cdot A}=\overline{A}$}
+\begin{circuitikz}
+    \ctikzset{logic ports=ieee}
+    \draw ++(0,0)node[left]{A} to[inline not] (2,0) node[above]{X} node[right=5pt](end){=};
+    \draw ++($ (end) + (2.3,0) $) node[nand port](nand){};
+    \draw ++($ (end) + (.5,0) $) node[above]{A} to[short,-*] ++(.5,0) node(junc)[inner sep=0pt]{};
+    \draw (junc) |- (nand.in 1);
+    \draw (junc) |- (nand.in 2);
+    \draw ++(nand.out) -- +(.5,0) node[above]{X};
+\end{circuitikz}
+\vskip 10pt
+
+\lov{And}{$X=\overline{\overline{A\cdot B}}=A\cdot B$}
+\begin{circuitikz}
+    \ctikzset{logic ports=ieee}
+    \draw (0,0) node[and port](and){};
+    \draw (and.in 1) node[left]{A};
+    \draw (and.in 2) node[left]{B};
+    \draw ++(and.out) -- +(.2,0) node[above]{X} node[right=5pt](end){=};
+
+    \draw ($ (end) + (2,0) $) node[nand port](nand1){};
+    \draw ++($ (nand1) + (2.5,0) $) node[nand port](nand2){};
+    \draw ++(nand1.out) to[short,-*] +(.1,0) |- (nand2.in 1);
+    \draw ++(nand1.out) to[short,-*] +(.1,0) |- (nand2.in 2);
+    \draw (nand1.in 1) node[left]{A};
+    \draw (nand1.in 2) node[left]{B};
+    \draw ++(nand2.out) -- +(.2,0) node[above]{X};
+\end{circuitikz}
+\vskip 10pt
+
+\lov{Or}{$X=\overline{\overline A\cdot \overline B}=\overline{\overline A}+\overline{\overline B}=A+B$}
+\begin{circuitikz}
+    \ctikzset{logic ports=ieee}
+    \draw (0,0) node[or port](or){};
+    \draw (or.in 1) node[left]{A};
+    \draw (or.in 2) node[left]{B};
+    \draw ++(or.out) -- +(.2,0) node[above]{X} node[right=5pt](end){=};
+    
+    \draw ++($ (end) + (2,.75) $) node[nand port](nand1){};
+    \draw ++($ (end) + (2,-.75) $) node[nand port](nand2){};
+    \draw ++(nand1.in 1) -| ++(-.25,-.275) to[short,*-] +(-.2,0) node[left,inner sep=0pt](A){A};
+    \draw ++(nand1.in 2) -| ++(-.25,.275) to[short,*-] (A);
+    \draw ++(nand2.in 1) -| ++(-.25,-.275) to[short,*-] +(-.2,0) node[left,inner sep=0pt](B){B};
+    \draw ++(nand2.in 2) -| ++(-.25,.275) to[short,*-] (B);
+
+    \draw ($ (end) + (4.5,0) $) node[nand port](nand3){};
+    \draw (nand1.out) -| (nand3.in 1);
+    \draw (nand2.out) -| (nand3.in 2);
+    \draw ++(nand3.out) -- +(.2,0) node[above]{X};
+\end{circuitikz}
+\vskip 10pt
+
+\subsection{Opamp koblinger}
+    \textbf{Inverterende}
+    \nopagebreak
+
+	\begin{circuitikz}
+	    \draw (0,0) node[op amp](A1){};
+	    \draw ++(A1.-)
+		-- ++(-1,0)
+		to[R=$R_1$] ++(-2,0)
+		to[vsource,l_=$V_{in}$, invert] ++(0,-2)
+		-- ++(2.5,0) node[left](Vom){}
+		to[short,*-] ++(0,1) -- (A1.+);
+	    \draw ++(A1.out)
+		-- ++(1.5,0)
+		to[open, v=$V_o$] ++(0,-1.5)
+		-- (Vom);
+	    \draw ++(A1.out) ++(.2,0)
+		to[short,*-] ++(0,1.5)
+		to[R=$R_2$] ++(-3,0)
+		to[short,-*] ++(0,-1);
+	\end{circuitikz}
+	\vskip 10pt
+	    $V_o=-V_{in}\left(\frac{R_2}{R_1}\right)$
+
+	    $A_V=-\frac{R_2}{R_1}$
+
+	    $R_{in}=\frac{V_{in}}{I_{in}}=R_1$
+
+	    $R_o=\frac{V_{o,oc}}{I_{o,sc}}=0$
+
+	\vskip 20pt
+    \textbf{Ikke Inverterende}
+    \nopagebreak
+
+	\begin{circuitikz}
+	    \draw (0,0) node[op amp, yscale=-1](A1){};
+	    \draw ++(A1.+)
+		-- ++(-2,0)
+		to[vsource,v_=$V_{in}$,invert] ++(0,-3.5)
+		-- ++(1.5,0) node[left](Vom){}
+		to[R=$R_1$,*-*] ++(0,1.5) node[left](R1){}
+		|- (A1.-);
+	    \draw ++(A1.out)
+		to[short,-*] +(.2,0) node[left](Vo){}
+		to[short] ++(1.5,0)
+		to[open,v=$V_o$] ++(0,-3)
+		to[short] (Vom);
+	    \draw ++(R1)
+		to[R=$R_2$] ++(3,0)
+		-| (Vo.east);
+	\end{circuitikz}
+	\vskip 10pt
+	    $V_o=V_{in}\left(1+\frac{R_2}{R_1}\right)$
+
+	    $A_V=1+\frac{R_2}{R_1}$
+
+	    $R_{in}=\frac{V_{in}}{I_{in}}=\infty$
+
+	    $R_o=\frac{V_{o,oc}}{I_{o,sc}}=0$
+
+	\vskip 20pt
+    \textbf{Spændingsfølger}
+    \nopagebreak
+
+	\begin{circuitikz}
+	    \draw (0,0) node[op amp,yscale=-1](A1){};
+	    \draw ++(A1.+)
+		-- ++(-2,0)
+		to[open,v=$V_{in}$] ++(0,-2.5)
+		-- ++(5,0)
+		to[open,v>=$V_o$] ++(0,2)
+		-- (A1.out);
+	    \draw ++(A1.out) ++(.2,0)
+		to[short,*-] ++(0,-1.5)
+		-- ++(-3,0)
+		|- (A1.-);
+	\end{circuitikz}
+	\vskip 10pt
+	    $V_o=V_{in}$
+
+	    $A_V=1$
+
+	    $R_{in}=\infty$
+
+	    $R_o=0$
+
+	\vskip 20pt
+    \textbf{Differens}
+    \nopagebreak
+
+	\begin{circuitikz}
+	    \draw (0,0) node[op amp](A1){};
+	    \draw ++(A1.-)
+		-- ++(-1.5,0)
+		to[R,l_={\colorul{green}{$R_1$}}] ++(-1.5,0)
+		-- ++(-1,0)
+		to[V_=$V_2$,invert] ++(0,-3)
+		-- ++(2.2,0) node[left](V1){}
+		-- ++(1.8,0) node[left](R4){}
+		-- ++(3.5,0)
+		to[open,v>=$V_o$] ++(0,2.5)
+		-- (A1.out);
+	    \draw ++(V1.east)
+		to[V=$V_1$,*-] ++(0,2)
+		to[R={\colorul{green}{$R_3$}}] (A1.+);
+	    \draw (R4.east) to[R={\colorul{red}{$R_4$}},*-*] (A1.+);
+	    \draw ++(A1.-)
+		to[short,*-] ++(0,1)
+		to[R={\colorul{red}{$R_2$}}] ++(2.4,0)
+		to[short,-*] (A1.out);
+	\end{circuitikz}
+	\vskip 10pt
+	    $V_o=\left(\frac{R_4(R_1+R_2)}{R_1(R_3+R_4)}\right)\cdot V_1-\left(\frac{R_2}{R_1}\right)\cdot V_2$
+	\vskip 10pt
+
+	Hvis $R_3=R_1$ og $R_4=R_2$ da gælder
+
+	    $V_o=\left(\frac{R_2}{R_1}\right)(V_1-V_2)$
+	\vskip 10pt
+
+	Og hvis $R_1=R_2=R_3=R_4$ da gælder
+
+	$V_o=V_1-V_2$
+	\vskip 20pt
+
+    \textbf{Inverterende sumkobling}
+
+    \nopagebreak
+    \begin{circuitikz}
+	\draw (0,0) node[op amp](A1){};
+	\draw ++(A1.-)
+	    -- ++(-1.5,0)
+	    to[R={\colorul{green}{$R_1$}}] ++(-2,0)
+	    to[open,v=$V_1$] ++(0,-2)
+	    -- ++(1.5,0) node(V2m){}
+	    -- ++(2,0) node(g){}
+	    -- ++(3,0)
+	    to[open,v>=$V_o$] ++(0,1.5)
+	    to[short,-*] (A1.out);
+	\draw ++(V2m)
+	    to[open,v>=$V_2$] ++(0,1)
+	    to[R={\colorul{green}{$R_2$}}] ++(1.5,0)
+	    to[short,-*] ++(0,1);
+	\draw ++(g.center)
+	    to[short,*-] ++(0,-.2) node[tlground]{};
+	\draw (g.center) -- (A1.+);
+	\draw ++(A1.-)
+	    to[short,*-] ++(0,.75)
+	    to[R=$R_3$] ++(2,0)
+	    -| (A1.out);
+    \end{circuitikz}
+    \vskip 10pt
+    $V_o=-\left(V_1\frac{R_3}{R_1}+V_2\frac{R_3}{R_2}\right)$
+
+    Specielt, hvis $R_1=R_2$
+ 
+\subsection{Flip-Flops}
+\subsubsection{T-type}
+\begin{circuitikz}
+    \draw node[flipflop T]{};
+\end{circuitikz}
+
+\rboks{$Q^*=T\oplus Q$}{2.5}
+
+\begin{tabular}{c|c}
+    $T$ & $Q^*$ \\ \hline
+    $0$ & $Q$ \\
+    $1$ & $\overline Q$
+\end{tabular}
+
+\subsubsection{SR-type}
+\begin{circuitikz}
+    \draw node[flipflop SR]{};
+    \draw (-.84,0) node[clockwedge](wedge){};
+    \draw ++(wedge.center) -- +(-.3,0);
+\end{circuitikz}
+
+\rboks{$Q^*=S+\overline R Q$}{3}
+
+\begin{tabular}{c|c}
+    $SR$ & $Q^*$ \\ \hline
+    $00$ & $Q$ \\
+    $01$ & $0$ \\
+    $10$ & $1$ \\
+    $11$ & {\color{red} FORBUDT}
+\end{tabular}
+
+\subsubsection{JK-type}
+\begin{circuitikz}
+    \draw node[flipflop JK]{};
+\end{circuitikz}
+
+\rboks{$Q^*=J\overline Q+\overline K Q$}{3}
+
+\begin{tabular}{c|c}
+    $JK$ & $Q^*$ \\ \hline
+    $00$ & $Q$ \\
+    $01$ & $0$ \\
+    $10$ & $1$ \\
+    $11$ & $\overline Q$
+\end{tabular}
+
+\subsubsection{D-type}
+\begin{circuitikz}
+    \draw node[flipflop D]{};
+\end{circuitikz}
+
+\rboks{$Q^*=D$}{1.5}
+
+\begin{tabular}{c|c}
+    $D$ & $Q^*$ \\ \hline
+    $0$ & $0$ \\
+    $1$ & $1$
+\end{tabular}
+
+
+\section{Kogeb\o ger}
+% \subsection{Kogebog for kredsløb (alle kogebøgers moder)}
+% \input{kogeboeger/kredsloeb.tex}
+%
+% \subsection{Knudepunktsmetoden}
+% \input{kogeboeger/knudepunkt.tex}
+%
+% \subsection{Superposition}
+% \input{kogeboeger/superposition.tex}
+%
+% \subsection{Maskemetoden}
+% \input{kogeboeger/maske.tex}
+%
+% \subsection{Thevenins Ækvivalent (fra diagram)}
+% \input{kogeboeger/thevenin-d.tex}
+%
+% \subsection{Genvejsmetoden (til thevenin, diagram)}
+% \input{kogeboeger/genvej.tex}
+%
+% \subsection{Theveninækvivalent (fyisk kredsløb)}
+% \input{kogeboeger/thevenin-f.tex}
+%
+% \subsection{Operationsforstærker (Opamp)}
+% \input{kogeboeger/opamp.tex}
+%
+% \subsection{Tilstandsmaskiner}
+% \input{kogeboeger/flipflop.tex}
+%
+% \subsection{Dioder}
+% \input{kogeboeger/dioder.tex}
+%
+% \subsection{Diodemodeller}
+% \input{kogeboeger/diodemodeller.tex}
+%
+% \subsection{Kondensator og Spole}
+% \input{kogeboeger/kondensatorogspole.tex}
+%
+% \subsection{Transistormodeller}
+% \input{kogeboeger/transmodeller.tex}
+%
+% \subsection{Eksamen}
+% \input{kogeboeger/eksamen.tex}
+
+\end{document}

@@ -1,0 +1,33 @@
+For \emph{alle lineære} kredsløb
+\begin{enumerate}
+    \item Bestem \rboks{$V_t=V_{oc}$}{1.7} (udgangsspænding uden belastning)
+
+	\begin{circuitikz}
+	    \draw (0,0) rectangle node[align=center]{Lineært\\kredsløb} (2,1);
+	    \draw ++(2,.1) -- +(1,0) to[open, v={\ }, l_={$V_t=V_{oc}$}] +(1,.8) -- +(0,.8);
+	\end{circuitikz} (Benyt masker, \emph{knudepunkter},\ldots)
+    \item Tegn nu en Kortslutning mellem terminalerne, og bestem \rboks{$I_n=I_{sc}$}{2} (Kortslutnings strømmen)
+
+	\begin{circuitikz}
+	    \draw (0,0) rectangle node[align=center]{Lineært\\kredsløb} (2,1);
+	    \draw ++(2,.1) -- +(1,0) to[short, *-*, l_={$\downarrow I_n=I_{sc}$}] +(1,.8) -- +(0,.8);
+	\end{circuitikz} (Benyt \emph{masker}, knudepunkter,\ldots)
+	
+	Du kan som udgangspunkt \emph{ikke} ``genbruge'' ligninger fra punkt 1, da Kredsløbet er ændret.
+    \item beregn \rboks{$R_n=R_t=\frac{V_{oc}}{I_{sc}}=\frac{V_t}{I_n}$}{4} (Den indre modstand)
+    \item Tegn det ækvivalente kredsløb
+	
+	\hspace{-5em}\begin{circuitikz}
+	    \draw ++(0,0) to[vsource={$V_t$}] ++(0,2) -- ++(1,0)
+		to[R={$R_t$}] ++(1,0) -- ++(1,0)
+		to[open, v={\ }] ++(0,-2) -- (0,0);
+	\end{circuitikz}
+	\hfill og/eller \hfill
+	\begin{circuitikz}
+	    \draw ++(0,0) to[isource, l={$I_n$}] ++(0,2)
+		to[short,-*] ++(1.5,0)
+		to[R={$R_n$}] ++(0,-2) -- (0,0);
+	    \draw ++(1.5,2) -- ++(1.5,0)
+		to[open, v={\ }] ++(0,-2) -- (0,0);
+	\end{circuitikz}
+\end{enumerate}

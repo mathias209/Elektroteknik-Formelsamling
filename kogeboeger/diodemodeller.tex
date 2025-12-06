@@ -1,0 +1,16 @@
+\begin{enumerate}
+    \item For hver diode: gæt ON eller OFF
+    \item Indsæt \begin{circuitikz}
+	    \draw ++(0,0) to[short,-*] ++(.5,0) to[open] ++(.5,0) to[short,*-] ++(.5,0);
+	    \node at (0.3,0.2) {$+$};
+	    \node at (.75,.25) {$V_d$};
+	    \node at (1.2,0.2) {$-$};
+    \end{circuitikz} for OFF eller \begin{circuitikz}
+	\ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}
+	\ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}}
+	\draw (0,0) to[vsource, bipoles/length=0.7cm, invert,l^=$V_k$] ++(1,0) to[short,f^=$I_d$] ++(.5,0);
+    \end{circuitikz} for ON på diodens plads
+\item Gør som du pljer, og bestem $V_d$ for OFF og $I_d$ for ON
+\item Kontroller, at $V_d<V_k$ for OFF og $I_d>0$ for ON
+\item \emph{ommer}, hvis 4. ikke er opfyldt!
+\end{enumerate}

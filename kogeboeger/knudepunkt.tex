@@ -1,0 +1,45 @@
+\begin{circuitikz}
+    \draw[thick] (0,0) rectangle node[above=55pt]{\underline{Faktaboks}} (6,5);
+	   \draw
+	++(1,3.5) node[left]{$V_A$} to[short, *-] +(1,0)
+	to[R=$R_X$, v=$V_X$, f^>=$I_X$] +(3,0)
+	to[short, -*] +(4,0) node[right]{$V_B$};
+    \draw +(3, 2) node{$V_X=V_A-V_B$};
+    \draw +(3, 1) node{$I_X=\frac{V_A-V_B}{R_X}$};
+\end{circuitikz}
+
+\begin{enumerate}
+    \setcounter{enumi}{-1}
+    \item Vælg et referencepunkt, og marker det med \gnd
+    \item Navngiv alle øvrige knudepunkter F.eks.\ $V_A,V_B,\ldots$
+    \item For alle spændingskilder, opskriv en ligning af typen
+
+    \begin{circuitikz}
+	\draw (0.5, 0) rectangle node{$V_A-V_B=10\unit{V}$} (3.5, 1);
+	\draw ++(0,2) node[left]{$V_A$} to[short, *-] +(1.5,0)
+	    to[vsource, v=$10\unit{V}$, invert] +(2.5,0)
+	    to[short, -*] +(4,0) node[right]{$V_B$};
+	\draw ++(6, 0) rectangle node{$V_A-V_B=2\unit{\frac VV}\cdot V_X$} +(3.5, 1);
+	\draw ++(5.5,2) node[left]{$V_A$} to[short, *-] +(1.5, 0)
+	    to[cvsource, v=$2\unit{\frac VV}\cdot V_X$, invert] +(2.5, 0)
+	    to[short, -*] +(4,0) node[right]{$V_B$};
+    \end{circuitikz}
+    \item For alle knudepunkter der ikke rører en \emph{spændingskilde}, opskriv en ligning af nedenstående type (dog ikke referencepunkt). Hvis en spændingskilde sidder mellem to navngivne knudepunkter, da laves \emph{en fælles} ligning
+
+    \begin{circuitikz}
+	\draw ++(0,1) node[left]{$V_B$} to[short, *-] ++(.5,0)
+	    to[R=$R_1$] ++(1,0)
+	    to[short, -*] ++(.5,0) node[above right]{$V_A$};
+	\draw ++(2,1) -- ++(0,.5)
+	    to[isource, l=$2\unit{A}$, invert] ++(0,1) -- ++(0,.5);
+	\draw ++(2,1) -- ++(0,-.5)
+	    to[R=$R_2$] ++(0,-1)
+	    to[short, -*] ++(0,-.5) node[below left]{$V_C$};
+	\draw ++(2,1) -- ++(.5,0)
+	    to[cisource, l=$2\unit{\frac AV}\cdot V_y$] ++(2,0);
+	\draw ++(5,.5) rectangle node{$\frac{V_A-V_B}{R_1}+\frac{V_A-V_C}{R_2}-2A+2\unit{\frac AV}\cdot V_y=0$} +(6.5,1.5);
+    \end{circuitikz}
+    \item For styrede kilder, opskriv et dutryk for styrespændingen/styrestrømmen (se faktaboks)
+    \item løs ligningen, $V_A=\ldots,V_B=\ldots$ (brug gerne maple)
+    \item Bestem de $V$\!, $I$\! eller $P$\!, du blev spurgt om (se faktaboksen). For strømme gennem spændingskilder benyttes KCL
+\end{enumerate}

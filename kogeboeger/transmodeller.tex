@@ -1,0 +1,100 @@
+\begin{enumerate}
+    \item Gæt transistorens tilstand
+    \item Indsæt modellen og husk betingelser
+    \item Gør som du plejer, og besktem de $I$ eller $V$, der indgår i modellens betingelser
+    \item Kontroller, at alle betingelser er opfyldt
+    \item \emph{Ommer}, hvis betingelserne ikke er \emph{ok}
+\end{enumerate}
+
+\begin{tikzpicture}
+    \draw[->] (-.3,0) -- (4,0) node[below]{$V_{BE}$};
+    \draw[->] (0,-.3) -- (0,4) node[left]{$I_B$};
+    \draw (0,0) -- ++(1.8,0) node(afend){}
+	.. controls ++(.2,0) and ++(0,-.2) .. ++(.4,.4) node(akbeg){}
+	-- ++(0,1.7) node(akend){}
+	-- ++(0,1.7) node(mend){};
+    \draw[red] (-.2,-.2) rectangle node[below=4pt]{Afskåret} ($ (afend) + (0,.2) $);
+    \draw[green] ($ (akbeg) + (-.2,0) $) rectangle node[right=3pt]{Aktiv} ($ (akend) + (.2,0) $);
+    \draw[orange] ($ (akend) + (-.2,0) $) rectangle node[right=3pt]{Mættet} ($ (mend) + (.2,0) $);
+\end{tikzpicture}
+\begin{tikzpicture}
+    \draw[->] (-.3,0) -- (4,0) node[below]{$V_{CE}$};
+    \draw[->] (0,-.3) -- (0,4) node[left]{$I_C$};
+    \foreach \y in {.4,.78,...,3.4}
+	\draw ++(0,0) .. controls ++(.1,0) and ++(0,-.1) ..
+	    ++(.2,.2) -- ++($ (0,\y) - (0,.3) $)
+	    .. controls ++(0,.05) and ++(-.05,0) .. (.3,\y) -- (4,\y);
+    \draw[orange] (-.15,.1) rectangle node[rotate=90,above=4pt]{Mættet} (.3,3.4);
+    \draw[red] ++(.35,-.15) rectangle node[below=4pt]{Afskåret} ++(3.5,.3);
+    \draw[green] ++(.4,.25) rectangle (4.2,3.4) node[above left]{Aktiv};
+\end{tikzpicture}
+\nopagebreak
+\vskip 10pt
+\nopagebreak
+\hrule
+\nopagebreak
+\parbox{7em}{\color{red} Afskåret
+
+(Cut-off)}
+    \parbox{10em}{
+\begin{circuitikz}
+    \draw ++(1.25,0) node[left]{$-$} node[right]{$E$} to[short,-*] ++(0,0.75);
+    \draw ++(0,1) node[left]{$B$} -- ++(.5,0) node(pB){} to[short,-*]  ++(.5,0);
+    \draw (pB) node[above]{$+$};
+    \draw (pB) node[below]{$+$};
+    \draw ++(1.25,2) node[left]{$-$} node[right]{$C$} to[short,-*] ++(0,-.75);
+    \draw (pB) node[above=10pt]{$V_{BC}$};
+    \draw (pB) node[below=10pt]{$V_{BE}$};
+\end{circuitikz}
+}
+\parbox{7em}{\color{blue} Betingelser:
+
+    \hspace{5pt} $V_{BE}<0.5\si{V}$
+
+    \hspace{5pt} $V_{BC}<0.5\si{V}$
+}
+\nopagebreak
+\hrule
+\nopagebreak
+\parbox{7em}{\color{orange} Mættet 
+
+(Saturated)}
+    \parbox{10em}{
+\begin{circuitikz}
+    \ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}
+    \ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}}
+
+    \draw ++(1.5,0) node[right]{$E$} to[short,-*] ++(0,.75) node[right](center){} to[vsource,v_={$0.2\si{V}$},f^<={$I_C$},bipoles/length=1cm] ++(0,1.75) node[right]{$C$};
+    \draw ++(center) to[vsource,v^={$0.7\si{V}$},f_<={$I_B$},bipoles/length=1cm] ++(-2,0) node[below]{$B$};
+\end{circuitikz}
+}
+\parbox{7em}{\color{blue} Betingelser:
+
+    \hspace{5pt} $I_B>0$
+
+    \hspace{5pt} $\beta\cdot I_B>I_C>0$
+}
+\nopagebreak
+\hrule
+\nopagebreak
+\parbox{7em}{\color{green} Aktiv 
+
+(Active)}
+    \parbox{10em}{
+\begin{circuitikz}
+    \ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}
+    \ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}}
+
+    \draw ++(1.5,0) node[right]{$E$} to[short,-*] ++(0,.75) node[right](center){} to[cisource,invert,bipoles/length=1cm] node[left]{$\beta\cdot I_{B}$} ++(0,1.75) node[right]{$C$};
+    \draw ++(center) to[vsource,v^={$0.7\si{V}$},f_<={$I_B$},bipoles/length=1cm] ++(-2,0) node[below]{$B$};
+    \node[align=left] at (2.3,.8) {$+$\\$V_{CE}$\\$-$};
+\end{circuitikz}
+}
+\parbox{7em}{\color{blue} Betingelser:
+
+    \hspace{5pt} $I_B>0$
+
+    \hspace{5pt} $V_{CE}>0.2\si{V}$
+}
+\nopagebreak
+\hrule

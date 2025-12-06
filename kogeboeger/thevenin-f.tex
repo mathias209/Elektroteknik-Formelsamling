@@ -1,0 +1,69 @@
+\begin{circuitikz}
+    \ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}
+    \ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}}
+    \ctikzset{bipoles/length=0.7cm}
+
+    % D
+    \draw ++(1,0.2) to[vsource=$V_t$] ++(0,1)
+    -- ++(.2,0) to[R, l_=$R_t$] ++(1,0) -- ++(.7,0)
+    to[open, v={\ }, l^={$V_o$}] ++(0,-1) -- (1,0.2);
+    \draw[dashed,brown] ++(.2,.1) rectangle +(2.2,1.3);
+    \draw[red, ultra thick] ++(4,.2) rectangle node[black]{$V_t=V_o$} +(1.7,.7);
+    \draw[dashed] ++(0,0) rectangle +(8,2) node[below left,xshift=-28]{D: Ubelastet, dvs. $R_L=\infty$ og $I_o=0$};
+
+    % C
+    \draw ++(1,2.2) to[vsource=$V_t$] ++(0,1)
+    -- ++(.2,0) to[R] ++(1.2,0) to[short, f={\ }] ++(.7,0) node[above=-3]{$I_o$}
+    to[R, v={$V_o$}] ++(0,-1) -- (1,2.2);
+    \draw[dashed,brown] ++(.2,2.1) rectangle +(2.2,1.3);
+    \draw[red, ultra thick] ++(4,2.2) rectangle node[black]{$V_o=V_t-R_t\cdot I_o$} +(3,.7);
+    \draw[dashed] ++(0,2) rectangle +(8,2.2) node[below left,xshift=-45]{C: Vi måler $V_o$ og $I_o$ ($R_L$ ukendt)};
+
+    % B
+    \draw ++(1,4.4) to[vsource=$V_t$] ++(0,1)
+    -- ++(.2,0) to[R, l_=$R_t$] ++(1.2,0) to[short, f={\ }] ++(.7,0) node[above=-3]{$I_o$}
+    to[R, l^={$R_L$}] ++(0,-1) -- (1,4.4);
+    \draw[dashed,brown] ++(.2,4.3) rectangle +(2.2,1.3);
+    \draw[red, ultra thick] ++(4.3,4.4) rectangle node[black]{$I_o=\frac{V_t}{R_t+R_L}$} +(2.3,1);
+    \draw[dashed] ++(0,4.2) rectangle +(8,2.2) node[below left,xshift=-73]{B: Vi kender $R_L$ og måler $I_o$};
+
+    % A
+    \draw ++(1,6.6) to[vsource=$V_t$] ++(0,1)
+    -- ++(.2,0) to[R, l_=$R_t$] ++(1.2,0) to[short] ++(.7,0)
+    to[R, l^={$R_L$}, v={$V_o$}] ++(0,-1) -- (1,6.6);
+    \draw[dashed,brown] ++(.2,6.5) rectangle +(2.2,1.3);
+    \draw[red, ultra thick] ++(4.3,6.6) rectangle node[black]{$V_o=V_t\frac{R_L}{R_t+R_L}$} +(2.5,1);
+    \draw[dashed] ++(0,6.4) rectangle +(8,2.2) node[below left,xshift=-70]{A: Vi kender $R_L$ og \emph{måler} $V_o$};
+
+    \draw (1,9) node{\underline{Faktaboks}};
+
+\end{circuitikz}
+\begin{enumerate}
+    \item Tilslut en belastning (gerne $R_L=\infty$, ubelastet)
+    \item Opskriv en ligning (se faktaboksen)
+    \item Tilslut en \emph{ny} belastning
+    \item Opskriv en \emph{ny} ligning (se faktaboksen)
+    \item Løs ligningerne, og bestem derved $V_t$ og $R_t$
+    \item Beregn:
+
+	\begin{center}
+	    \rboks{$I_n=\frac{V_t}{R_t}$}{2}
+
+	    \rboks{$R_n=R_t$}{2}
+	\end{center}
+    \item Tegn det ækvivalente kredsløb
+	
+	\hspace{-5em}\begin{circuitikz}
+	    \draw ++(0,0) to[vsource={$V_t$}] ++(0,2) -- ++(1,0)
+		to[R={$R_t$}] ++(1,0) -- ++(1,0)
+		to[open, v={\ }] ++(0,-2) -- (0,0);
+	\end{circuitikz}
+	\hfill og/eller \hfill
+	\begin{circuitikz}
+	    \draw ++(0,0) to[isource, l={$I_n$}] ++(0,2)
+		to[short,-*] ++(1.5,0)
+		to[R={$R_n$}] ++(0,-2) -- (0,0);
+	    \draw ++(1.5,2) -- ++(1.5,0)
+		to[open, v={\ }] ++(0,-2) -- (0,0);
+	\end{circuitikz}
+\end{enumerate}

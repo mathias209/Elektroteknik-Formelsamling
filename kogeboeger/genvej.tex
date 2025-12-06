@@ -1,0 +1,18 @@
+Kun for \emph{lineære} kredsløb \emph{uden} styrede kilder - \emph{men megasmart!}
+\begin{enumerate}
+    \item \rboks{$V_t=V_{oc}$}{2} \emph{eller} \rboks{$I_n=I_{sc}$}{2}
+
+	\begin{center}
+	\begin{circuitikz}
+	    \draw (0,0) rectangle node[align=center]{Lineært\\kredsløb} (2,1);
+	    \draw ++(2,.1) -- +(1,0) to[open, v={\ }, l_={$V_t=V_{oc}$}] +(1,.8) -- +(0,.8);
+	\end{circuitikz}
+	\hspace{3em}
+	\begin{circuitikz}
+	    \draw (0,0) rectangle node[align=center]{Lineært\\kredsløb} (2,1);
+	    \draw ++(2,.1) -- +(1,0) to[short, *-*, l_={$\downarrow I_n=I_{sc}$}] +(1,.8) -- +(0,.8);
+	\end{circuitikz}
+	\end{center}
+    \item Bestem den ækvivalente modstand \rboks[1]{$R_n=R_t=R_{eq}$\termeq}{3.2} set fra terminalerne, når alle kilder nulstilles
+    \item Beregn: \rboks{$R_n=R_t=\frac{V_{oc}}{I_{sc}}=\frac{V_t}{I_n}$}{4}
+\end{enumerate}

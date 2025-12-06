@@ -1,0 +1,24 @@
+\begin{circuitikz}
+    \draw (0,0) rectangle node[above=60pt]{\underline{Faktaboks}} node[above=40pt]{Nulstilling af kilder} (6.5,6);
+    \draw ++(1.5,1) -- ++(0,1) to[vsource={0V},l_={=}] ++(0,1) -- +(0,1);
+    \draw ++(2.5,1) -- node[right]{og} +(0,3);
+    \draw ++(4,1) -- ++(0,1) to[isource={0A}, l_={=}] ++(0,1) -- +(0,1);
+    \draw ++(5,1) to[short, -*] ++(0,0.7) ++(0,1.6) to[short, *-] +(0,0.7);
+    \draw (1.5,0) node[above]{Kortslutning};
+    \draw (4.4,0) node[above]{Afbrydelse};
+\end{circuitikz}
+\begin{description}
+    \item[Betingelser]
+	\begin{itemize}
+	    \item[]
+	    \item Kredsløbet må kun bestå af \emph{lineære} komponenter (kilder, modstande, kondensatorer, spoler, operationsforstærkere,\ldots)
+	    \item Hvis Kredsløbet indeholder styrede kilder, \cvsource eller \cisource, bliver metoden \emph{besværlig}. $\Rightarrow$ så lad vær'.
+	\end{itemize}
+    \item[Fremgangsmåde]
+	\begin{enumerate}
+	    \item[]
+	    \item Nulstil alle kilder (se faktaboks)
+	    \item Tænd for kilderne, en ad gangen, og bestem den V eller I (ikke~P!), du blev spurgt om.
+	    \item Læg bidragene for de enkelte kilder sammen, og vær omhyggelig med fortegn.
+	\end{enumerate}
+\end{description}

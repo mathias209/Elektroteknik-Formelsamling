@@ -1,0 +1,40 @@
+\begin{circuitikz}
+    \draw (0,0) node[op amp](A1){};
+    \draw ++(A1.-)
+	to[short,f_<=$I_-$] ++(-3,0)
+	-- ++(-1,0)
+	to[open, v>=$V_d$] ++(0,-1)
+	to[short,-*] ++(1,0) node[below right]{$V_+$}
+	to[short,f_>=$I_+$] (A1.+);
+    \draw ++(A1.-) ++(-3,0)
+	to[short,*-,l_=$V_-$] ++(0,1)
+	-- ++(3,0)
+	to[R] ++(1,0)
+	-| (A1.out);
+    \draw ++(A1.out)
+	to[short,*-] ++(1,0)
+	to[open,v=$V_o$] ++(0,-1.5)
+	-- ++(-6.4,0) node(gnd){}
+	-- ++(-1,0);
+    \draw ++(gnd)
+	to[short,*-] ++(0,-.1) node[tlground]{};
+    \draw[<-,brown,thick] ++(A1.out) ++(.3,.3) .. controls +(1.2,.7) .. +(2.5,1)
+    node[right,align=left]{Ingen knudepunktsligning\\for dette punkt};
+\end{circuitikz}
+\begin{enumerate}
+    \item Kontroller, at der sidder en \bipole{R}\ eller \short\ mellem udgangen og "$-$" indgangen. \emph{(Det gør der altid!)}
+    \item Opskriv og benyt: \rboks[2]{%
+		$I_+=0$ \\%
+		$I_-=0$ \\%
+		$V_d=0\Leftrightarrow V_+=V_-$%
+	}{4}
+    \item Gør som du plejer, altså
+	\begin{enumerate}
+	    \item Benyt skiftevis KVL, Ohms lov, KCL, Ohms lov, KVL fra venstre mod højre, og brestem alle ubekendte. Du er færdig, når du kan lave en KVL med $V_o$.
+	    \item Benyt Knudepunktsmetoden, \emph{men}
+		\begin{itemize}
+		    \item Ingen ligning for punktet ved udgangen
+		    \item Ny ligning: \rboks{$V_+=V_-$}{1.7}
+		\end{itemize}
+	\end{enumerate}
+\end{enumerate}
